@@ -1,3 +1,21 @@
+var count = 0;
+var Actor = function(spriter) {
+    this.sprite = spriter;
+    this.x = count;
+    this.y = count;
+    count = count + 80;
+}
+Actor.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+// Update the Actor's position, required method for game
+// Parameter: dt, a time delta between ticks
+Actor.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+}
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -5,31 +23,31 @@ var Enemy = function() {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    Actor.call(this, 'images/enemy-bug.png')
 }
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-}
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+Enemy.prototype = Object.create(Actor.prototype);
+Enemy.prototype.constructor = Enemy;
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+    Actor.call(this, 'images/char-boy.png');
+}
+Player.prototype = Object.create(Actor.prototype);
+Player.prototype.constructor = Enemy;
+
+Player.prototype.handleInput = function(key) {
+
+}
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
+var allEnemies = [new Enemy(), new Enemy(), new Enemy()]
+var player = new Player();
+var actor = new Actor('images/water-block.png');
 
 
 // This listens for key presses and sends the keys to your
