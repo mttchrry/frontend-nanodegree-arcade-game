@@ -47,7 +47,7 @@ Player.prototype.handleInput = function(key) {
 // Place the player object in a variable called player
 var allEnemies = [new Enemy(), new Enemy(), new Enemy()]
 var player = new Player();
-var actor = new Actor('images/water-block.png');
+var actor = new Actor('images/char-horn-girl.png');
 
 
 // This listens for key presses and sends the keys to your
