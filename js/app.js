@@ -1,11 +1,11 @@
-var count = 0;
+
 
 var Actor = function(spriter) {
     this.sprite = spriter;
-    this.x = count;
-    this.y = count;
-    count = count + 80;
+    this.x = 0;
+    this.y = 0;
 }
+
 Actor.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -24,7 +24,7 @@ var Enemy = function(row, speed) {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    Actor.call(this, 'images/enemy-bug.png')
+    Actor.call(this, 'images/char-horn-girl.png')
     this.y = ((row + 1) * 83) - 20;
     this.x = -101 // the width of the bug sprite, can't use resources.get here, image hasn't been loaded;
     this.speed = speed;
@@ -72,6 +72,14 @@ Player.prototype.update = function() {
             }
         }
     }
+    if(this.y == -10)
+    {
+        console.log("why is it -10?")
+        var enemyCount;
+        for(enemyCount in allEnemies) {
+            allEnemies[enemyCount].speed = 0;
+        }
+    }
 }
 
 Player.prototype.handleInput = function(key) {
@@ -89,6 +97,9 @@ Player.prototype.handleInput = function(key) {
         case 'right':
             this.x = this.x+101;
             break;
+        case 'reset':
+            allEnemies = [EnemyManager.GenerateEnemy(), EnemyManager.GenerateEnemy(),EnemyManager.GenerateEnemy(),EnemyManager.GenerateEnemy()];
+            player = new Player();
         default:
     }
 }
@@ -127,7 +138,8 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        82: 'reset'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
