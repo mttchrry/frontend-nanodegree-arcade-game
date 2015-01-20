@@ -112,14 +112,13 @@ Player.prototype.handleInput = function(key) {
         default:
     }
 };
+
 var allEnemies;
 var EnemyFactory = function() {
-    this.enemies = [];
     this.rows = 4
 };
 EnemyFactory.prototype.generateEnemy = function() {
-    this.enemies = [];
-    var row, bugRow, bugSpeed;
+    var bugRow, bugSpeed;
     bugRow = randomIntFromInterval(0,3);
     bugSpeed = randomIntFromInterval(maxSpeed, 4*maxSpeed);
     return new Enemy(bugRow, bugSpeed);
@@ -127,20 +126,20 @@ EnemyFactory.prototype.generateEnemy = function() {
 EnemyFactory.prototype.buildAllEnemies = function() {
     //Replace the entire enemy array and build it from scratch.
     var count = 0;
-    var enemyArray = [];
+    allEnemies = [];
     for(count = 0; count < enemyCount; count=count+1)
     {
         var newEnemy = this.generateEnemy();
         // initially randomize the x location of enemies so users don't get a free
         // path at the begining of the game.
         newEnemy.x = randomIntFromInterval(-CELL_WIDTH, CELL_WIDTH*5)
-        enemyArray.push(newEnemy);
+        allEnemies.push(newEnemy);
     }
+    //used to show the current count and speed, initially on start up.
     var numEnemies = document.getElementById('enemy_number');
     var speedEnemies = document.getElementById('enemy_speed');
     numEnemies.value= enemyCount;
     speedEnemies.value = Math.floor(maxSpeed);
-    allEnemies = enemyArray;
 }
 
 // Now instantiate your objects.
