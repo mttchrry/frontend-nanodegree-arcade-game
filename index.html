@@ -3,8 +3,27 @@
 <head>
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
+	<script src="js/jQuery.js"></script>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<form> No. of Enemies:
+					<input type="text" id="enemy_number"></input>
+				</form>
+			</div>
+			<div class="col-md-2">
+				<div id="main"></div>
+			</div>
+			<div class="col-md-5">
+				<form>Enemy Speed:
+					<input type="text" id="enemy_speed"></input>
+				</form>
+			</div>
+		</div>
+	</div>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>

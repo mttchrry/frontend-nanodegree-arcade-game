@@ -26,7 +26,7 @@ var Engine = (function(global) {
         lastTime;
 
     canvas.width = 505;
-    canvas.height = 700;
+    canvas.height = (numRows+1)*CELL_HEIGHT+5;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -116,8 +116,6 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 7,
-            numCols = 5,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
@@ -133,12 +131,28 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * CELL_WIDTH, row * CELL_HEIGHT);
             }
         }
 
 
         renderEntities();
+        if (winState) {
+            ctx.font='70px Impact';
+            // Create gradient
+            var gradient= ctx.createLinearGradient(0,0,300,0);
+            gradient.addColorStop('0','magenta');
+            gradient.addColorStop('0.5','blue');
+            gradient.addColorStop('1.0','red');
+            // Fill with gradient
+            ctx.fillStyle=gradient;
+            ctx.fillText('You Win!',125,250);
+            ctx.font='30px Arial';
+            ctx.fillText("Press 'r' to restart." , 130,400);
+        }
+        ctx.font='30px Ariel'
+        ctx.fillStyle='Orange';
+        ctx.fillText('Losses : '+numLosses, 200, (numRows+1)*CELL_HEIGHT);
     }
 
     /* This function is called by the render function and is called on each game
@@ -175,7 +189,8 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/char-catgirl.png',
-        'images/char-horn-girl.png'
+        'images/char-horn-girl.png',
+        'images/muscle_car.png'
     ]);
     Resources.onReady(init);
 
