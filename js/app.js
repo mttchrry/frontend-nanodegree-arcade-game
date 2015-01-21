@@ -166,7 +166,7 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-$('#main').append('<button id="resetEnemies">Set Game Attributes</button>');
+$('#main').append('<button id="resetEnemies">Reset Game</button>');
 $(document).ready(function() {
   $('#resetEnemies').click(function() {
     var numEnemies = document.getElementById('enemy_number');
